@@ -1,5 +1,5 @@
 ({
-    name: "Blynk(MOD)", // Name
+    name: "Blynk-Legacy", // Name
     description: "Use For Old Blynk",
     author: "Nawa",
     category: "Communication",
