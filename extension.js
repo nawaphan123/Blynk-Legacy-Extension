@@ -4,7 +4,7 @@
     author: "Nawa",
     category: "Communication",
     version: "1.0.0",
-    icon: "/static/icon.png", // Category icon
+    icon: "/static/icon(2).png", // Category icon
     color: "#bc991a", // Category color (recommend some blocks color)
     blocks: [ // Blocks in Category
         {
