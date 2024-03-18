@@ -1,64 +1,94 @@
 ({
-    name: "GPS", // Category Name
-    description: "Get latitude longitude and speed from GPS module",
+    name: "Blynk(MOD)", // Name
+    description: "Use For Old Blynk",
     author: "Nawa",
-    category: "Sensors",
-    version: "1.2.0",
-    icon: "/static/icon2.png", // Category icon
-    color: "#5DADE2", // Category color (recommend some blocks color)
+    category: "Communication",
+    version: "2.0.0",
+    icon: "/static/icon.png", // Category icon
+    color: "#bc991a", // Category color (recommend some blocks color)
     blocks: [ // Blocks in Category
-    {
-        xml: `
-            <block type="gps_setup">
-                <value name="pin">
-                    <shadow type="math_number">
-                        <field name="NUM">8</field>
-                    </shadow>
-                </value>
-            </block>
-            `
-        },
-        "gps_is_ready",
-        "gps_position",
-        "gps_speed",
         {
             xml: `
-                <block type="gps_distance">
-                    <value name="lat1">
-                        <shadow type="math_number">
-                            <field name="NUM">0</field>
+                <block type="blynk_setup">
+                    <value name="ssid">
+                        <shadow type="text">
+                            <field name="TEXT">-wifi name-</field>
                         </shadow>
                     </value>
-                    <value name="lng1">
-                        <shadow type="math_number">
-                            <field name="NUM">0</field>
+                    <value name="server">
+                        <shadow type="text">
+                            <field name="TEXT">-server address-</field>
                         </shadow>
                     </value>
-                    <value name="lat2">
-                        <shadow type="math_number">
-                            <field name="NUM">0</field>
+                    <value name="auth">
+                        <shadow type="text">
+                            <field name="TEXT">-Auth Token-</field>
                         </shadow>
                     </value>
-                    <value name="lng2">
+                    <value name="pass">
+                        <shadow type="text">
+                            <field name="TEXT">-wifi pass-</field>
+                        </shadow>
+                    </value>
+                    <value name="template_id">
+                        <shadow type="text">
+                            <field name="TEXT">--template-id--</field>
+                        </shadow>
+                    </value>
+                    <value name="template_name">
+                        <shadow type="text">
+                            <field name="TEXT">--template-name--</field>
+                        </shadow>
+                    </value>
+                    <value name="port">
                         <shadow type="math_number">
-                            <field name="NUM">0</field>
+                            <field name="NUM">2</field>
                         </shadow>
                     </value>
                 </block>
             `
         },
         {
-            xml: '<label text="UTC datetime"></label>',
+            xml: `
+                <block type="math_number">
+                    <field name="NUM">8080</field>
+                </block>
+            `
         },
-        "gps_get_hour",
-        "gps_get_min",
-        "gps_get_sec",
-        "gps_get_day",
-        "gps_get_month",
-        "gps_get_year"
+        "blynk_on_vw",
+        "blynk_get_value_number",
+        "blynk_get_value_string",
+        "blynk_on_vr",
+        {
+            xml: `
+                <block type="blynk_write">
+                    <value name="value">
+                        <shadow type="math_number">
+                            <field name="NUM">5</field>
+                        </shadow>
+                    </value>
+                </block>
+            `
+        },
+        "blynk_loop",
+        "blynk_run",
+        {
+            xml: `
+                <block type="text">
+                    <field name="TEXT">123456785</field>
+                </block>
+            `
+        }
+
     ],
+    chip: [
+        "ESP32", // Chip support
+        "RP2-WiFi",
+        "Uno-R4-WiFi"
+    ], 
     supportArduinoPlatform: true,
     depends: [ // Arduino library
-        "TinyGPS@13.0.0"
+        "Blynk@1.3.2",
+        "BlynkNcpDriver@0.6.3"
     ]
 });
