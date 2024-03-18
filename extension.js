@@ -1,7 +1,7 @@
 ({
     name: "Blynk-Legacy", // Name
     description: "Use For Old Blynk",
-    author: "Nawa-Phansaen",
+    author: "Nawa Phansaen",
     category: "Communication",
     version: "2.0.5",
     icon: "/static/icon.png", // Category icon
