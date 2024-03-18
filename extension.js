@@ -3,7 +3,7 @@
     description: "Use For Old Blynk",
     author: "Nawa",
     category: "Communication",
-    version: "2.0.0",
+    version: "1.0.0",
     icon: "/static/icon.png", // Category icon
     color: "#bc991a", // Category color (recommend some blocks color)
     blocks: [ // Blocks in Category
