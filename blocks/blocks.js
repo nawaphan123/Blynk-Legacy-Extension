@@ -1,183 +1,327 @@
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "gps_setup",
-  "message0": "GPS setup (tx pin: %1 rx pin: %2)",
-  "args0": [
-    [ "kidbright", "openkb" ].findIndex(a => boardId.startsWith(a)) >= 0 ? {
-      "type": "field_dropdown",
-      "name": "pin",
-      "options": [
-        [ "IN1", "32" ],
-        [ "IN2", "33" ],
-        [ "IN3", "34" ],
-        [ "IN4", "35" ],
-        [ "OUT1", "26" ],
-        [ "OUT2", "27" ],
-        [ "23", "23" ],
-        [ "19", "19" ],
-        [ "18", "18" ]
-      ]
-    } : {
-      "type": "input_value",
-      "name": "pin",
-      "check": "Number"
-    },
-    [ "kidbright", "openkb" ].findIndex(a => boardId.startsWith(a)) >= 0 ? {
-      "type": "field_dropdown",
-      "name": "pin2",
-      "options": [
-        [ "IN1", "32" ],
-        [ "IN2", "33" ],
-        [ "IN3", "34" ],
-        [ "IN4", "35" ],
-        [ "OUT1", "26" ],
-        [ "OUT2", "27" ],
-        [ "23", "23" ],
-        [ "19", "19" ],
-        [ "18", "18" ]
-      ]
-    } : {
-      "type": "input_value",
-      "name": "pin2",
-      "check": "Number"
-    },
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_is_ready",
-  "message0": "GPS is ready ?",
-  "output": "Boolean",
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_position",
-  "message0": "GPS get position  %1",
-  "args0": [
-    {
-      "type": "field_dropdown",
-      "name": "type",
-      "options": [
-        [
-          "latitude",
-          "0"
-        ],
-        [
-          "longitude",
-          "1"
+Blockly.defineBlocksWithJsonArray(
+  [{
+    "type": "blynk_setup",
+    "message0": boardId !== "arduino-uno-r4-wifi" ?
+      "Blynk setup %1 WiFi SSID: %2 WiFi Password: %3 Server: %4 Auth Token: %5 Port: %6 debug: %7 " :
+      "Blynk setup %1 WiFi SSID: %2 WiFi Password: %3 Server: %4 Template ID: %5 Template Name: %6 Auth Token: %7 debug: %8",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_value",
+        "name": "ssid",
+        "check": "String"
+      },
+      {
+        "type": "input_value",
+        "name": "pass",
+        "check": "String"
+      },
+      {
+        "type": "input_value",
+        "name": "server",
+        "check": "String"
+      },
+    ].concat(boardId === "arduino-uno-r4-wifi" && [
+      {
+        "type": "input_value",
+        "name": "template_id",
+        "check": "String"
+      },
+      {
+        "type": "input_value",
+        "name": "template_name",
+        "check": "String"
+      },
+    ]).concat([
+      {
+        "type": "input_value",
+        "name": "auth",
+        "check": "String"
+      },
+      ,{
+        "type": "input_value",
+        "name": "port",
+        "check": "Number"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "debug",
+        "options": [
+          ["on", "print"],
+          ["off", "None"]
         ]
-      ]
-    }
-  ],
-  "output": "Number",
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_speed",
-  "message0": "GPS get speed (km/h)",
-  "output": "Number",
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_distance",
-  "message0": "distance (km) %1 latitude1 %2 longitude1 %3 latitude2 %4 longitude2 %5",
-  "args0": [
-    {
-      "type": "input_dummy"
-    },
-    {
-      "type": "input_value",
-      "name": "lat1",
-      "check": "Number",
-      "align": "RIGHT"
-    },
-    {
-      "type": "input_value",
-      "name": "lng1",
-      "check": "Number",
-      "align": "RIGHT"
-    },
-    {
-      "type": "input_value",
-      "name": "lat2",
-      "check": "Number",
-      "align": "RIGHT"
-    },
-    {
-      "type": "input_value",
-      "name": "lng2",
-      "check": "Number",
-      "align": "RIGHT"
-    }
-  ],
-  "inputsInline": false,
-  "output": null,
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_get_hour",
-  "message0": "GPS get Hour",
-  "inputsInline": false,
-  "output": "Number",
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_get_min",
-  "message0": "GPS get Min",
-  "inputsInline": false,
-  "output": "Number",
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_get_sec",
-  "message0": "GPS get Second",
-  "inputsInline": false,
-  "output": "Number",
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_get_day",
-  "message0": "GPS get Day",
-  "inputsInline": false,
-  "output": "Number",
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_get_month",
-  "message0": "GPS get Month",
-  "inputsInline": false,
-  "output": "Number",
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "gps_get_year",
-  "message0": "GPS get Year",
-  "inputsInline": false,
-  "output": "Number",
-  "colour": "#5DADE2",
-  "tooltip": "",
-  "helpUrl": ""
-}
-]);
+      }
+    ]).filter(a => Boolean(a)),
+    "inputsInline": false,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF3131",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "blynk_on_vw",
+    "message0": "Blynk on Virtual pin %1 write %2 %3",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "pin",
+        "options": [
+          ["V0", "V0"],
+          ["V1", "V1"],
+          ["V2", "V2"],
+          ["V3", "V3"],
+          ["V4", "V4"],
+          ["V5", "V5"],
+          ["V6", "V6"],
+          ["V7", "V7"],
+          ["V8", "V8"],
+          ["V9", "V9"],
+          ["V10", "V10"],
+          ["V11", "V11"],
+          ["V12", "V12"],
+          ["V13", "V13"],
+          ["V14", "V14"],
+          ["V15", "V15"],
+          ["V16", "V16"],
+          ["V17", "V17"],
+          ["V18", "V18"],
+          ["V19", "V19"],
+          ["V20", "V20"],
+          ["V21", "V21"],
+          ["V22", "V22"],
+          ["V23", "V23"],
+          ["V24", "V24"],
+          ["V25", "V25"],
+          ["V26", "V26"],
+          ["V27", "V27"],
+          ["V28", "V28"],
+          ["V29", "V29"],
+          ["V30", "V30"],
+          ["V31", "V31"],
+          ["V32", "V32"],
+          ["V33", "V33"],
+          ["V34", "V34"],
+          ["V35", "V35"],
+          ["V36", "V36"],
+          ["V37", "V37"],
+          ["V38", "V38"],
+          ["V39", "V39"],
+          ["V40", "V40"],
+          ["V41", "V41"],
+          ["V42", "V42"],
+          ["V43", "V43"],
+          ["V44", "V44"],
+          ["V45", "V45"],
+          ["V46", "V46"],
+          ["V47", "V47"],
+          ["V48", "V48"],
+          ["V49", "V49"],
+          ["V50", "V50"],
+        ]
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "callback"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#1ABC9C",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "blynk_on_vr",
+    "message0": "Blynk on Virtual pin %1 read %2 %3",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "pin",
+        "options": [
+          ["V0", "V0"],
+          ["V1", "V1"],
+          ["V2", "V2"],
+          ["V3", "V3"],
+          ["V4", "V4"],
+          ["V5", "V5"],
+          ["V6", "V6"],
+          ["V7", "V7"],
+          ["V8", "V8"],
+          ["V9", "V9"],
+          ["V10", "V10"],
+          ["V11", "V11"],
+          ["V12", "V12"],
+          ["V13", "V13"],
+          ["V14", "V14"],
+          ["V15", "V15"],
+          ["V16", "V16"],
+          ["V17", "V17"],
+          ["V18", "V18"],
+          ["V19", "V19"],
+          ["V20", "V20"],
+          ["V21", "V21"],
+          ["V22", "V22"],
+          ["V23", "V23"],
+          ["V24", "V24"],
+          ["V25", "V25"],
+          ["V26", "V26"],
+          ["V27", "V27"],
+          ["V28", "V28"],
+          ["V29", "V29"],
+          ["V30", "V30"],
+          ["V31", "V31"],
+          ["V32", "V32"],
+          ["V33", "V33"],
+          ["V34", "V34"],
+          ["V35", "V35"],
+          ["V36", "V36"],
+          ["V37", "V37"],
+          ["V38", "V38"],
+          ["V39", "V39"],
+          ["V40", "V40"],
+          ["V41", "V41"],
+          ["V42", "V42"],
+          ["V43", "V43"],
+          ["V44", "V44"],
+          ["V45", "V45"],
+          ["V46", "V46"],
+          ["V47", "V47"],
+          ["V48", "V48"],
+          ["V49", "V49"],
+          ["V50", "V50"],
+        ]
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "callback"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#1ABC9C",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "blynk_write",
+    "message0": "Blynk write %1 to Virtual pin %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "value"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "pin",
+        "options": [
+          ["V0", "V0"],
+          ["V1", "V1"],
+          ["V2", "V2"],
+          ["V3", "V3"],
+          ["V4", "V4"],
+          ["V5", "V5"],
+          ["V6", "V6"],
+          ["V7", "V7"],
+          ["V8", "V8"],
+          ["V9", "V9"],
+          ["V10", "V10"],
+          ["V11", "V11"],
+          ["V12", "V12"],
+          ["V13", "V13"],
+          ["V14", "V14"],
+          ["V15", "V15"],
+          ["V16", "V16"],
+          ["V17", "V17"],
+          ["V18", "V18"],
+          ["V19", "V19"],
+          ["V20", "V20"],
+          ["V21", "V21"],
+          ["V22", "V22"],
+          ["V23", "V23"],
+          ["V24", "V24"],
+          ["V25", "V25"],
+          ["V26", "V26"],
+          ["V27", "V27"],
+          ["V28", "V28"],
+          ["V29", "V29"],
+          ["V30", "V30"],
+          ["V31", "V31"],
+          ["V32", "V32"],
+          ["V33", "V33"],
+          ["V34", "V34"],
+          ["V35", "V35"],
+          ["V36", "V36"],
+          ["V37", "V37"],
+          ["V38", "V38"],
+          ["V39", "V39"],
+          ["V40", "V40"],
+          ["V41", "V41"],
+          ["V42", "V42"],
+          ["V43", "V43"],
+          ["V44", "V44"],
+          ["V45", "V45"],
+          ["V46", "V46"],
+          ["V47", "V47"],
+          ["V48", "V48"],
+          ["V49", "V49"],
+          ["V50", "V50"],
+        ]
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#1ABC9C",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "blynk_get_value_number",
+    "message0": "Blynk get value as number",
+    "inputsInline": true,
+    "output": null,
+    "colour": "#1ABC9C",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "blynk_get_value_string",
+    "message0": "Blynk get value as text",
+    "inputsInline": true,
+    "output": null,
+    "colour": "#1ABC9C",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "blynk_loop",
+    "message0": "Blynk run loop",
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#1ABC9C",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "blynk_run",
+    "message0": "Blynk run",
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF3131",
+    "tooltip": "",
+    "helpUrl": ""
+  }]
+);
