@@ -1,258 +1,297 @@
-Blockly.Python['gps_setup'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
+Blockly.Python['blynk_setup'] = function(block) {
+  var value_ssid = Blockly.Python.valueToCode(block, 'ssid', Blockly.Python.ORDER_ATOMIC) || '""';
+  var value_pass = Blockly.Python.valueToCode(block, 'pass', Blockly.Python.ORDER_ATOMIC) || 'None';
+  var value_server = Blockly.Python.valueToCode(block, 'server', Blockly.Python.ORDER_ATOMIC) || '""';
+  var value_auth = Blockly.Python.valueToCode(block, 'auth', Blockly.Python.ORDER_ATOMIC) || '""';
+  var value_port = Blockly.Python.valueToCode(block, 'port', Blockly.Python.ORDER_ATOMIC) || '""';
+  var dropdown_debug = block.getFieldValue('debug');
 
-  var dropdown_pin = block.getFieldValue('pin') || Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
-  var dropdown_pin2 = block.getFieldValue('pin2') || Blockly.Python.valueToCode(block, 'pin2', Blockly.Python.ORDER_ATOMIC);
+  Blockly.Python.definitions_['import_machine'] = 'import machine';
+  Blockly.Python.definitions_['import_blynklib'] = 'import BlynkLib';
+  Blockly.Python.definitions_['import_network'] = 'import network';
 
-  var code = `GPS.config(${dropdown_pin},${dropdown_pin2})\n`;
+  var functionName = Blockly.Python.provideFunction_(
+    'blynkSetup',
+    ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(wifi_ssid, wifi_pass, server, auth, debug, port):',
+    '  global blynk',
+    '  print("Connecting to WiFi...")',
+    '  wifi = network.WLAN(network.STA_IF)',
+    '  wifi.active(True)',
+    '  wifi.connect(wifi_ssid, wifi_pass)',
+    '  while not wifi.isconnected():',
+    '    pass',
+    '  print("IP:", wifi.ifconfig()[0])',
+    '  print("Connecting to Blynk...")',
+    '  blynk = BlynkLib.Blynk(auth, server=server, log=debug,port=port)']);
+
+  var code = `${functionName}(${value_ssid}, ${value_pass}, ${value_server}, ${value_auth}, ${dropdown_debug}, ${value_port})\n`;
   return code;
 };
 
-Blockly.Python['gps_is_ready'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
+Blockly.Python['blynk_on_vw'] = function(block) {
+  var dropdown_pin = block.getFieldValue('pin');
+  var statements_callback = Blockly.Python.statementToCode(block, 'callback');
+  if (typeof Blockly.Python.variableDB_ === "undefined") {
+    Blockly.Python.variableDB_ = Blockly.Python.nameDB_;
+  }
 
-  var code = `GPS.position()[0] != None`;
-  return [code, Blockly.Python.ORDER_NONE];
-};
+  var globals = [];
+  var varName;
+  var workspace = block.workspace;
+  var variables = Blockly.Variables.allUsedVarModels(workspace) || [];
+  for (var i = 0, variable; variable = variables[i]; i++) {
+    varName = variable.name;
+    if (block.getVars().indexOf(varName) == -1) {
+      globals.push(Blockly.Python.variableDB_.getName(varName,
+          Blockly.VARIABLE_CATEGORY_NAME));
+    }
+  }
+  // Add developer variables.
+  var devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+  for (var i = 0; i < devVarList.length; i++) {
+    globals.push(Blockly.Python.variableDB_.getName(devVarList[i],
+        Blockly.Names.DEVELOPER_VARIABLE_TYPE));
+  }
 
-
-Blockly.Python['gps_position'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
-
-  var dropdown_type = block.getFieldValue('type');
-
-  var code = `GPS.position()[${dropdown_type}]`;
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Python['gps_speed'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
-
-  var code = `GPS.speed()`;
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Python['gps_distance'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
-
-  var value_lat1 = Blockly.Python.valueToCode(block, 'lat1', Blockly.Python.ORDER_ATOMIC);
-  var value_lng1 = Blockly.Python.valueToCode(block, 'lng1', Blockly.Python.ORDER_ATOMIC);
-  var value_lat2 = Blockly.Python.valueToCode(block, 'lat2', Blockly.Python.ORDER_ATOMIC);
-  var value_lng2 = Blockly.Python.valueToCode(block, 'lng2', Blockly.Python.ORDER_ATOMIC);
-
-  var code = `GPS.distance(${value_lat1}, ${value_lng1}, ${value_lat2}, ${value_lng2})`;
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Python['gps_get_hour'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
-
-  var code = 'GPS.datetime()[3]';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Python['gps_get_min'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
-
-  var code = 'GPS.datetime()[4]';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Python['gps_get_sec'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
-
-  var code = 'GPS.datetime()[5]';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Python['gps_get_day'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
-
-  var code = 'GPS.datetime()[2]';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Python['gps_get_month'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
-
-  var code = 'GPS.datetime()[1]';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Python['gps_get_year'] = function(block) {
-  Blockly.Python.definitions_['import_GPS'] = 'import GPS';
-
-  var code = 'GPS.datetime()[0]';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-
-Blockly.JavaScript['gps_setup'] = function(block) {
-  Blockly.JavaScript.definitions_['include']['SoftwareSerial.h'] = '#include <SoftwareSerial.h>';
-  Blockly.JavaScript.definitions_['include']['TinyGPS.h'] = '#include <TinyGPS.h>';
+  globals = globals.length ?
+      Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' : '';
   
-  var dropdown_pin = block.getFieldValue('pin') || Blockly.JavaScript.valueToCode(block, 'pin', Blockly.JavaScript.ORDER_ATOMIC);
-  var dropdown_pin2 = block.getFieldValue('pin2') || Blockly.JavaScript.valueToCode(block, 'pin2', Blockly.JavaScript.ORDER_ATOMIC);
+  var functionName = Blockly.Python.provideFunction_(
+    dropdown_pin + '_write_handler',
+    ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(value):',
+    globals,
+    statements_callback]);
 
-  Blockly.JavaScript.definitions_['define']['gps'] = `TinyGPS gps;`;
-  Blockly.JavaScript.definitions_['define']['gpsSerial'] = `SoftwareSerial gpsSerial(${dropdown_pin}, ${dropdown_pin2});`;
-
-  var code = `gpsSerial.begin(9600);\n`;
+  var code = `blynk.callbacks["${dropdown_pin}"] = ${functionName}\n`;
   return code;
 };
 
-Blockly.JavaScript['gps_is_ready'] = function(block) {
+Blockly.Python['blynk_on_vr'] = function(block) {
+  var dropdown_pin = block.getFieldValue('pin');
+  var statements_callback = Blockly.Python.statementToCode(block, 'callback');
+  if (typeof Blockly.Python.variableDB_ === "undefined") {
+    Blockly.Python.variableDB_ = Blockly.Python.nameDB_;
+  }
+
+  var globals = [];
+  var varName;
+  var workspace = block.workspace;
+  var variables = Blockly.Variables.allUsedVarModels(workspace) || [];
+  for (var i = 0, variable; variable = variables[i]; i++) {
+    varName = variable.name;
+    if (block.getVars().indexOf(varName) == -1) {
+      globals.push(Blockly.Python.variableDB_.getName(varName,
+          Blockly.VARIABLE_CATEGORY_NAME));
+    }
+  }
+  // Add developer variables.
+  var devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+  for (var i = 0; i < devVarList.length; i++) {
+    globals.push(Blockly.Python.variableDB_.getName(devVarList[i],
+        Blockly.Names.DEVELOPER_VARIABLE_TYPE));
+  }
+
+  globals = globals.length ?
+        Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' : '';
+  
+  var functionName = Blockly.Python.provideFunction_(
+    dropdown_pin + '_read_handler',
+    ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '():',
+    globals,
+    statements_callback]);
+
+  var code = `blynk.callbacks["read${dropdown_pin}"] = ${functionName}\n`;
+  return code;
+};
+
+Blockly.Python['blynk_write'] = function(block) {
+  var value_value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC) || "";
+  var dropdown_pin = block.getFieldValue('pin');
+  var code = `blynk.virtual_write(${+dropdown_pin.replace("V", "")}, ${value_value})\n`;
+  return code;
+};
+
+Blockly.Python['blynk_get_value_number'] = function(block) {
+  var code = 'int(value[0])';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['blynk_get_value_string'] = function(block) {
+  var code = 'value[0]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['blynk_loop'] = function(block) {
+  var functionName = Blockly.Python.provideFunction_(
+    'blynkLoop',
+    ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '():',
+    '  while True:',
+    '    blynk.run()',
+    '    machine.idle()']);
+
+  var code = `${functionName}()\n`;
+  return code;
+};
+
+Blockly.Python['blynk_run'] = function(block) {
+  var functionName = Blockly.Python.provideFunction_(
+    'blynkRun',
+    ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '():',
+    '  blynk.run()',
+    '  machine.idle()']);
+
+  var code = `${functionName}()\n`;
+  return code;
+};
+
+
+Blockly.JavaScript['blynk_setup'] = function(block) {
+  var value_ssid = Blockly.JavaScript.valueToCode(block, 'ssid', Blockly.JavaScript.ORDER_ATOMIC) || 'String("")';
+  var value_pass = Blockly.JavaScript.valueToCode(block, 'pass', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var value_server = Blockly.JavaScript.valueToCode(block, 'server', Blockly.JavaScript.ORDER_ATOMIC) || 'String("")';
+  var value_template_id = Blockly.JavaScript.valueToCode(block, 'template_id', Blockly.JavaScript.ORDER_ATOMIC) || 'String("")';
+  var value_template_name = Blockly.JavaScript.valueToCode(block, 'template_name', Blockly.JavaScript.ORDER_ATOMIC) || 'String("")';
+  var value_auth = Blockly.JavaScript.valueToCode(block, 'auth', Blockly.JavaScript.ORDER_ATOMIC) || 'String("")';
+  var dropdown_debug = block.getFieldValue('debug');
+  
+  const unplugString = str => /String\(([^\)]*)/gm.exec(str)[1];
+
+  if (dropdown_debug === "print") {
+    Blockly.JavaScript.definitions_['include']['_BLYNK_PRINT'] = '#define BLYNK_PRINT Serial';
+  }
+  Blockly.JavaScript.definitions_['include']['_BLYNK_DEFINE'] = 
+`#define BLYNK_TEMPLATE_ID ${unplugString(value_template_id)}
+#define BLYNK_TEMPLATE_NAME ${unplugString(value_template_name)}
+#define BLYNK_AUTH_TOKEN ${unplugString(value_auth)}
+#define BLYNK_SERVER ${unplugString(value_server)}
+`;
+  Blockly.JavaScript.definitions_['include']['BlynkMultiClient.h'] = '#include <BlynkMultiClient.h>';
+  Blockly.JavaScript.definitions_['include']['WiFiS3.h'] = '#include <WiFiS3.h>';
+
+  Blockly.JavaScript.definitions_['define']['blynkWiFiClient'] = 'static WiFiClient blynkWiFiClient;';
+
   var functionName = Blockly.JavaScript.provideFunction_(
-    `gps_is_ready`,
+    'connectWiFi',
     [
-      'bool ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
-      '  bool newData = false;',
-      '  for (unsigned long start = millis(); millis() - start < 1000;) {',
-      '    while (gpsSerial.available()) {',
-      '      char c = gpsSerial.read();',
-      '      if (gps.encode(c)) {',
-      '        newData = true;',
-      '      }',
-      '    }',
+      'void ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
+      `  Serial.println("Connecting to " + ${value_ssid});`,
+      '  ',
+      `  WiFi.begin(${unplugString(value_ssid)}${value_pass !== '' ? `, ${unplugString(value_pass)}` : ""});`,
+      '  ',
+      '  while (WiFi.status() != WL_CONNECTED) {',
+      '    delay(100);',
+      '    Serial.print(".");',
       '  }',
-      '  return newData;',
       '}',
     ]
   );
 
-  var code = `${functionName}()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var code = `Serial.begin(115200);
+
+${functionName}();
+
+Blynk.addClient("WiFi", blynkWiFiClient, 80);
+Blynk.config(BLYNK_AUTH_TOKEN, BLYNK_SERVER);
+`;
+  return code;
 };
 
+Blockly.JavaScript['blynk_on_vw'] = function(block) {
+  var dropdown_pin = block.getFieldValue('pin');
+  var statements_callback = Blockly.JavaScript.statementToCode(block, 'callback');
 
-Blockly.JavaScript['gps_position'] = function(block) {
-  var dropdown_type = block.getFieldValue('type');
-
-  var functionName = Blockly.JavaScript.provideFunction_(
-    `gps_get_position`,
+  Blockly.JavaScript.provideFunction_(
+    'BLYNK_WRITE_' + dropdown_pin,
     [
-      'bool ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '(int inx) {',
-      '  float flat, flon;',
-      '  unsigned long age;',
-      '  gps.f_get_position(&flat, &flon, &age);',
-      '  return inx == 0 ? flat : flon;',
+      `BLYNK_WRITE(${dropdown_pin}) {`,
+      `  ${statements_callback}`,
       '}',
     ]
   );
 
-  var code = `${functionName}(${dropdown_type})`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var code = "";
+  return code;
 };
 
-Blockly.JavaScript['gps_speed'] = function(block) {
-  var code = `gps.f_speed_kmph()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
+Blockly.JavaScript['blynk_on_vr'] = function(block) {
+  var dropdown_pin = block.getFieldValue('pin');
+  var statements_callback = Blockly.JavaScript.statementToCode(block, 'callback');
 
-Blockly.JavaScript['gps_distance'] = function(block) {
-  var value_lat1 = Blockly.JavaScript.valueToCode(block, 'lat1', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_lng1 = Blockly.JavaScript.valueToCode(block, 'lng1', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_lat2 = Blockly.JavaScript.valueToCode(block, 'lat2', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_lng2 = Blockly.JavaScript.valueToCode(block, 'lng2', Blockly.JavaScript.ORDER_ATOMIC);
-
-  var code = `gps.distance_between(${value_lat1}, ${value_lng1}, ${value_lat2}, ${value_lng2})`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
-
-Blockly.JavaScript['gps_get_hour'] = function(block) {
-  var functionName = Blockly.JavaScript.provideFunction_(
-    `gps_get_hour`,
+  Blockly.JavaScript.provideFunction_(
+    'BLYNK_READ_' + dropdown_pin,
     [
-      'int ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
-      '  byte hour;',
-      '  gps.crack_datetime(NULL, NULL, NULL, &hour, NULL, NULL, NULL, NULL);',
-      '  return hour;',
+      `BLYNK_READ(${dropdown_pin}) {`,
+      `  ${statements_callback}`,
       '}',
     ]
   );
 
-  var code = `${functionName}()`;
+  var code = "";
+  return code;
+};
+
+Blockly.JavaScript['blynk_write'] = function(block) {
+  var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC) || "";
+  var dropdown_pin = block.getFieldValue('pin');
+
+  var code = `Blynk.virtualWrite(${dropdown_pin}, ${value_value});\n`;
+  return code;
+};
+
+Blockly.JavaScript['blynk_get_value_number'] = function(block) {
+  var code = 'param.asInt()';
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript['gps_get_min'] = function(block) {
+Blockly.JavaScript['blynk_get_value_string'] = function(block) {
+  var code = 'String(param.asString())';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript['blynk_loop'] = function(block) {
   var functionName = Blockly.JavaScript.provideFunction_(
-    `gps_get_min`,
+    'blynkRun',
     [
-      'int ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
-      '  byte min;',
-      '  gps.crack_datetime(NULL, NULL, NULL, NULL, &min, NULL, NULL, NULL);',
-      '  return min;',
-      '}',
+      'void ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
+      '  if (WiFi.status() != WL_CONNECTED) {',
+      '    connectWiFi();',
+      '    return;',
+      '  }',
+      '  Blynk.run();',
+      '}'
     ]
   );
 
-  var code = `${functionName}()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var code = `while(1) {
+  ${functionName}();
+}
+`;
+  return code;
 };
 
-Blockly.JavaScript['gps_get_sec'] = function(block) {
+Blockly.JavaScript['blynk_run'] = function(block) {
   var functionName = Blockly.JavaScript.provideFunction_(
-    `gps_get_sec`,
+    'blynkRun',
     [
-      'int ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
-      '  byte sec;',
-      '  gps.crack_datetime(NULL, NULL, NULL, NULL, NULL, &sec, NULL, NULL);',
-      '  return sec;',
-      '}',
+      'void ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
+      '  if (WiFi.status() != WL_CONNECTED) {',
+      '    connectWiFi();',
+      '    return;',
+      '  }',
+      '  Blynk.run();',
+      '}'
     ]
   );
 
-  var code = `${functionName}()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var code = `${functionName}();\n`;
+  return code;
 };
 
-Blockly.JavaScript['gps_get_day'] = function(block) {
-  var functionName = Blockly.JavaScript.provideFunction_(
-    `gps_get_day`,
-    [
-      'int ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
-      '  byte day;',
-      '  gps.crack_datetime(NULL, NULL, &day, NULL, NULL, NULL, NULL, NULL);',
-      '  return day;',
-      '}',
-    ]
-  );
 
-  var code = `${functionName}()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
 
-Blockly.JavaScript['gps_get_month'] = function(block) {
-  var functionName = Blockly.JavaScript.provideFunction_(
-    `gps_get_month`,
-    [
-      'int ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
-      '  byte month;',
-      '  gps.crack_datetime(NULL, &month, NULL, NULL, NULL, NULL, NULL, NULL);',
-      '  return month;',
-      '}',
-    ]
-  );
 
-  var code = `${functionName}()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
 
-Blockly.JavaScript['gps_get_year'] = function(block) {
-  var functionName = Blockly.JavaScript.provideFunction_(
-    `gps_get_year`,
-    [
-      'int ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
-      '  int year;',
-      '  gps.crack_datetime(&year, NULL, NULL, NULL, NULL, NULL, NULL, NULL);',
-      '  return year;',
-      '}',
-    ]
-  );
 
-  var code = `${functionName}()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
+
 
 
