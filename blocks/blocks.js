@@ -209,7 +209,7 @@ Blockly.defineBlocksWithJsonArray(
     "inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
-    "colour": "#1ABC9C",
+    "colour": "#FF3131",
     "tooltip": "",
     "helpUrl": ""
   },
@@ -282,7 +282,7 @@ Blockly.defineBlocksWithJsonArray(
     "inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
-    "colour": "#1ABC9C",
+    "colour": "#FF3131",
     "tooltip": "",
     "helpUrl": ""
   },
@@ -291,7 +291,7 @@ Blockly.defineBlocksWithJsonArray(
     "message0": "Blynk get value as number",
     "inputsInline": true,
     "output": null,
-    "colour": "#1ABC9C",
+    "colour": "#FF3131",
     "tooltip": "",
     "helpUrl": ""
   },
@@ -300,7 +300,7 @@ Blockly.defineBlocksWithJsonArray(
     "message0": "Blynk get value as text",
     "inputsInline": true,
     "output": null,
-    "colour": "#1ABC9C",
+    "colour": "#FF3131",
     "tooltip": "",
     "helpUrl": ""
   },
@@ -310,7 +310,7 @@ Blockly.defineBlocksWithJsonArray(
     "inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
-    "colour": "#1ABC9C",
+    "colour": "#FF3131",
     "tooltip": "",
     "helpUrl": ""
   },
