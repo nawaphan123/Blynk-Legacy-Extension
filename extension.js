@@ -9,7 +9,7 @@
     blocks: [ // Blocks in Category
         {
             xml: `
-                <block type="blynk_setup">
+                <block type="blynk_setup1">
                     <value name="ssid">
                         <shadow type="text">
                             <field name="TEXT">-wifi name-</field>
@@ -55,13 +55,13 @@
                 </block>
             `
         },
-        "blynk_on_vw",
-        "blynk_get_value_number",
-        "blynk_get_value_string",
-        "blynk_on_vr",
+        "blynk_on_vw1",
+        "blynk_get_value_number1",
+        "blynk_get_value_string1",
+        "blynk_on_vr1",
         {
             xml: `
-                <block type="blynk_write">
+                <block type="blynk_write1">
                     <value name="value">
                         <shadow type="math_number">
                             <field name="NUM">5</field>
@@ -70,8 +70,8 @@
                 </block>
             `
         },
-        "blynk_loop",
-        "blynk_run",
+        "blynk_loop1",
+        "blynk_run1",
         {
             xml: `
                 <block type="text">
