@@ -1,6 +1,6 @@
 Blockly.defineBlocksWithJsonArray(
   [{
-    "type": "blynk_setup",
+    "type": "blynk_setup1",
     "message0": boardId !== "arduino-uno-r4-wifi" ?
       "Blynk setup %1 WiFi SSID: %2 WiFi Password: %3 Server: %4 Auth Token: %5 Port: %6 debug: %7 " :
       "Blynk setup %1 WiFi SSID: %2 WiFi Password: %3 Server: %4 Template ID: %5 Template Name: %6 Auth Token: %7 debug: %8",
@@ -62,7 +62,7 @@ Blockly.defineBlocksWithJsonArray(
     "helpUrl": ""
   },
   {
-    "type": "blynk_on_vw",
+    "type": "blynk_on_vw1",
     "message0": "Blynk on Virtual pin %1 write %2 %3",
     "args0": [
       {
@@ -138,7 +138,7 @@ Blockly.defineBlocksWithJsonArray(
     "helpUrl": ""
   },
   {
-    "type": "blynk_on_vr",
+    "type": "blynk_on_vr1",
     "message0": "Blynk on Virtual pin %1 read %2 %3",
     "args0": [
       {
@@ -214,7 +214,7 @@ Blockly.defineBlocksWithJsonArray(
     "helpUrl": ""
   },
   {
-    "type": "blynk_write",
+    "type": "blynk_write1",
     "message0": "Blynk write %1 to Virtual pin %2",
     "args0": [
       {
@@ -287,7 +287,7 @@ Blockly.defineBlocksWithJsonArray(
     "helpUrl": ""
   },
   {
-    "type": "blynk_get_value_number",
+    "type": "blynk_get_value_number1",
     "message0": "Blynk get value as number",
     "inputsInline": true,
     "output": null,
@@ -296,7 +296,7 @@ Blockly.defineBlocksWithJsonArray(
     "helpUrl": ""
   },
   {
-    "type": "blynk_get_value_string",
+    "type": "blynk_get_value_string1",
     "message0": "Blynk get value as text",
     "inputsInline": true,
     "output": null,
@@ -305,7 +305,7 @@ Blockly.defineBlocksWithJsonArray(
     "helpUrl": ""
   },
   {
-    "type": "blynk_loop",
+    "type": "blynk_loop1",
     "message0": "Blynk run loop",
     "inputsInline": true,
     "previousStatement": null,
@@ -315,7 +315,7 @@ Blockly.defineBlocksWithJsonArray(
     "helpUrl": ""
   },
   {
-    "type": "blynk_run",
+    "type": "blynk_run1",
     "message0": "Blynk run",
     "inputsInline": true,
     "previousStatement": null,
