@@ -48,13 +48,7 @@
                 </block>
             `
         },
-        {
-            xml: `
-                <block type="math_number">
-                    <field name="NUM">8080</field>
-                </block>
-            `
-        },
+ 
         "blynk_on_vw1",
         "blynk_get_value_number1",
         "blynk_get_value_string1",
@@ -78,7 +72,13 @@
                     <field name="TEXT">123456785</field>
                 </block>
             `
-        }
+        }  ,{
+            xml: `
+                <block type="math_number">
+                    <field name="NUM">8080</field>
+                </block>
+            `
+        },
 
     ],
     chip: [
