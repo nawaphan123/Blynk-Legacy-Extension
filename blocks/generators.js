@@ -1,4 +1,4 @@
-Blockly.Python['blynk_setup'] = function(block) {
+Blockly.Python['blynk_setup1'] = function(block) {
   var value_ssid = Blockly.Python.valueToCode(block, 'ssid', Blockly.Python.ORDER_ATOMIC) || '""';
   var value_pass = Blockly.Python.valueToCode(block, 'pass', Blockly.Python.ORDER_ATOMIC) || 'None';
   var value_server = Blockly.Python.valueToCode(block, 'server', Blockly.Python.ORDER_ATOMIC) || '""';
@@ -11,7 +11,7 @@ Blockly.Python['blynk_setup'] = function(block) {
   Blockly.Python.definitions_['import_network'] = 'import network';
 
   var functionName = Blockly.Python.provideFunction_(
-    'blynkSetup',
+    'blynkSetup1',
     ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(wifi_ssid, wifi_pass, server, auth, debug, port):',
     '  global blynk',
     '  print("Connecting to WiFi...")',
@@ -28,7 +28,7 @@ Blockly.Python['blynk_setup'] = function(block) {
   return code;
 };
 
-Blockly.Python['blynk_on_vw'] = function(block) {
+Blockly.Python['blynk_on_vw1'] = function(block) {
   var dropdown_pin = block.getFieldValue('pin');
   var statements_callback = Blockly.Python.statementToCode(block, 'callback');
   if (typeof Blockly.Python.variableDB_ === "undefined") {
@@ -66,7 +66,7 @@ Blockly.Python['blynk_on_vw'] = function(block) {
   return code;
 };
 
-Blockly.Python['blynk_on_vr'] = function(block) {
+Blockly.Python['blynk_on_vr1'] = function(block) {
   var dropdown_pin = block.getFieldValue('pin');
   var statements_callback = Blockly.Python.statementToCode(block, 'callback');
   if (typeof Blockly.Python.variableDB_ === "undefined") {
@@ -104,24 +104,24 @@ Blockly.Python['blynk_on_vr'] = function(block) {
   return code;
 };
 
-Blockly.Python['blynk_write'] = function(block) {
+Blockly.Python['blynk_write1'] = function(block) {
   var value_value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC) || "";
   var dropdown_pin = block.getFieldValue('pin');
   var code = `blynk.virtual_write(${+dropdown_pin.replace("V", "")}, ${value_value})\n`;
   return code;
 };
 
-Blockly.Python['blynk_get_value_number'] = function(block) {
+Blockly.Python['blynk_get_value_number1'] = function(block) {
   var code = 'int(value[0])';
   return [code, Blockly.Python.ORDER_NONE];
 };
 
-Blockly.Python['blynk_get_value_string'] = function(block) {
+Blockly.Python['blynk_get_value_string1'] = function(block) {
   var code = 'value[0]';
   return [code, Blockly.Python.ORDER_NONE];
 };
 
-Blockly.Python['blynk_loop'] = function(block) {
+Blockly.Python['blynk_loop1'] = function(block) {
   var functionName = Blockly.Python.provideFunction_(
     'blynkLoop',
     ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '():',
@@ -133,7 +133,7 @@ Blockly.Python['blynk_loop'] = function(block) {
   return code;
 };
 
-Blockly.Python['blynk_run'] = function(block) {
+Blockly.Python['blynk_run1'] = function(block) {
   var functionName = Blockly.Python.provideFunction_(
     'blynkRun',
     ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '():',
@@ -145,7 +145,7 @@ Blockly.Python['blynk_run'] = function(block) {
 };
 
 
-Blockly.JavaScript['blynk_setup'] = function(block) {
+Blockly.JavaScript['blynk_setup1'] = function(block) {
   var value_ssid = Blockly.JavaScript.valueToCode(block, 'ssid', Blockly.JavaScript.ORDER_ATOMIC) || 'String("")';
   var value_pass = Blockly.JavaScript.valueToCode(block, 'pass', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var value_server = Blockly.JavaScript.valueToCode(block, 'server', Blockly.JavaScript.ORDER_ATOMIC) || 'String("")';
@@ -196,7 +196,7 @@ Blynk.config(BLYNK_AUTH_TOKEN, BLYNK_SERVER);
   return code;
 };
 
-Blockly.JavaScript['blynk_on_vw'] = function(block) {
+Blockly.JavaScript['blynk_on_vw1'] = function(block) {
   var dropdown_pin = block.getFieldValue('pin');
   var statements_callback = Blockly.JavaScript.statementToCode(block, 'callback');
 
@@ -213,7 +213,7 @@ Blockly.JavaScript['blynk_on_vw'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['blynk_on_vr'] = function(block) {
+Blockly.JavaScript['blynk_on_vr1'] = function(block) {
   var dropdown_pin = block.getFieldValue('pin');
   var statements_callback = Blockly.JavaScript.statementToCode(block, 'callback');
 
@@ -230,7 +230,7 @@ Blockly.JavaScript['blynk_on_vr'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['blynk_write'] = function(block) {
+Blockly.JavaScript['blynk_write1'] = function(block) {
   var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC) || "";
   var dropdown_pin = block.getFieldValue('pin');
 
@@ -238,17 +238,17 @@ Blockly.JavaScript['blynk_write'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['blynk_get_value_number'] = function(block) {
+Blockly.JavaScript['blynk_get_value_number1'] = function(block) {
   var code = 'param.asInt()';
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript['blynk_get_value_string'] = function(block) {
+Blockly.JavaScript['blynk_get_value_string1'] = function(block) {
   var code = 'String(param.asString())';
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript['blynk_loop'] = function(block) {
+Blockly.JavaScript['blynk_loop1'] = function(block) {
   var functionName = Blockly.JavaScript.provideFunction_(
     'blynkRun',
     [
@@ -269,7 +269,7 @@ Blockly.JavaScript['blynk_loop'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['blynk_run'] = function(block) {
+Blockly.JavaScript['blynk_run1'] = function(block) {
   var functionName = Blockly.JavaScript.provideFunction_(
     'blynkRun',
     [
